@@ -154,6 +154,7 @@ class PvController
     public function telecharger(): void
     {
         $scope = $_GET['scope'] ?? 'tous';
+        $format = $_GET['format'] ?? 'zip'; // 'zip' ou 'pdf'
 
         $encadrantId = (int)($_GET['encadrant_id'] ?? 0);
         $etudiantId = (int)($_GET['etudiant_id'] ?? 0);
@@ -177,11 +178,19 @@ class PvController
                     return;
                 }
 
-                $this->_telechargerParEncadrant($encadrantId);
+                if ($format === 'pdf') {
+                    $this->_telechargerParEncadrantPDF($encadrantId);
+                } else {
+                    $this->_telechargerParEncadrant($encadrantId);
+                }
                 break;
 
             default:
-                $this->_telechargerTous();
+                if ($format === 'pdf') {
+                    $this->_telechargerTousPDF();
+                } else {
+                    $this->_telechargerTous();
+                }
                 break;
         }
     }
@@ -452,6 +461,112 @@ class PvController
     {
         http_response_code(400);
         echo $msg;
+    }
+
+    // =========================================================================
+    // Télécharger par encadrant en PDF fusionné
+    // =========================================================================
+    private function _telechargerParEncadrantPDF(int $encadrant_id): void
+    {
+        $stmt = $this->db->prepare("
+            SELECT id_etudiant
+            FROM etudiant
+            WHERE id_prof = ?
+        ");
+
+        $stmt->execute([$encadrant_id]);
+
+        $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        if (empty($ids)) {
+            echo "Aucun étudiant.";
+            return;
+        }
+
+        $stmt = $this->db->prepare("
+            SELECT nom, prenom
+            FROM professeur
+            WHERE id = ?
+        ");
+
+        $stmt->execute([$encadrant_id]);
+
+        $enc = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $nomEnc = preg_replace(
+            '/[^a-zA-Z0-9_\-]/',
+            '_',
+            $enc['nom'] ?? 'encadrant'
+        );
+
+        $fichiers = $this->_assurerPVs($ids);
+
+        $this->_envoyerPDFFusionne($fichiers, "pvs_encadrant_{$nomEnc}.pdf");
+    }
+
+    // =========================================================================
+    // Télécharger tous en PDF fusionné
+    // =========================================================================
+    private function _telechargerTousPDF(): void
+    {
+        $stmt = $this->db->query("
+            SELECT id_etudiant
+            FROM etudiant
+            ORDER BY nom, prenom
+        ");
+
+        $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        $fichiers = $this->_assurerPVs($ids);
+
+        $this->_envoyerPDFFusionne($fichiers, "tous_les_pvs.pdf");
+    }
+
+    // =========================================================================
+    // Envoyer PDF fusionné
+    // =========================================================================
+    private function _envoyerPDFFusionne(array $fichiers, string $nom_pdf): void
+    {
+        if (empty($fichiers)) {
+            echo "Aucun PV disponible.";
+            return;
+        }
+
+        // Filtrer les fichiers qui existent vraiment
+        $fichiersExistants = array_filter($fichiers, 'file_exists');
+
+        if (empty($fichiersExistants)) {
+            echo "Aucun fichier PV trouvé.";
+            return;
+        }
+
+        try {
+            require_once __DIR__ . '/../vendor/setasign/fpdi/src/autoload.php';
+
+            $pdf = new \setasign\Fpdi\Fpdi();
+
+            foreach ($fichiersExistants as $fichier) {
+                $pageCount = $pdf->setSourceFile($fichier);
+
+                for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                    $templateId = $pdf->importPage($pageNo);
+                    $size = $pdf->getTemplateSize($templateId);
+
+                    $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+                    $pdf->useTemplate($templateId);
+                }
+            }
+
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . $nom_pdf . '"');
+
+            $pdf->Output('I');
+            exit;
+
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo "Erreur lors de la fusion des PDFs : " . $e->getMessage();
+        }
     }
 }
 ?>

@@ -50,7 +50,7 @@
                 <tr>
                     <td><?= $index + 1 ?></td>
                     <td><?= htmlspecialchars($s['titre_pfe'] ?? '-') ?></td>
-                    <td><?= htmlspecialchars($s['date'] ?? '-') ?></td>
+                    <td><?= htmlspecialchars($s['date_soutenance'] ?? '-') ?></td>
                     <td><?= htmlspecialchars($s['heure_debut'] ?? '-') ?></td>
                     <td><?= htmlspecialchars($s['heure_fin'] ?? '-') ?></td>
                     <td>

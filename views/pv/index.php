@@ -23,13 +23,25 @@
                 Procès-verbaux par encadrant
             </h2>
             <p class="text-muted mb-0">Liste des étudiants groupée par encadrant</p>
+            <small class="text-muted">
+                <i class="bi bi-info-circle me-1"></i>
+                ZIP : fichier compressé avec tous les PVs séparés • PDF : tous les PVs fusionnés en un seul document
+            </small>
         </div>
 
         <!-- Télécharger tous les PVs -->
-        <a href="/web/index.php?controller=pv&action=telecharger&scope=tous"
-           class="btn btn-dark">
-            <i class="bi bi-file-earmark-zip me-2"></i>Télécharger tous les PVs
-        </a>
+        <div class="btn-group">
+            <a href="/web/index.php?controller=pv&action=telecharger&scope=tous&format=zip"
+               class="btn btn-dark"
+               title="Télécharger tous les PVs (ZIP)">
+                <i class="bi bi-file-earmark-zip me-2"></i>Télécharger ZIP
+            </a>
+            <a href="/web/index.php?controller=pv&action=telecharger&scope=tous&format=pdf"
+               class="btn btn-outline-dark"
+               title="Télécharger tous les PVs (PDF fusionné)">
+                <i class="bi bi-file-earmark-pdf me-2"></i>PDF fusionné
+            </a>
+        </div>
     </div>
 
     <?php if (empty($encadrants)): ?>
@@ -60,10 +72,18 @@
                     </div>
 
                     <!-- Télécharger PVs de cet encadrant -->
-                    <a href="/web/index.php?controller=pv&action=telecharger&scope=encadrant&encadrant_id=<?= $enc['id'] ?>"
-                       class="btn btn-sm btn-outline-light">
-                        <i class="bi bi-download me-1"></i> Télécharger PVs
-                    </a>
+                    <div class="btn-group btn-group-sm">
+                        <a href="/web/index.php?controller=pv&action=telecharger&scope=encadrant&encadrant_id=<?= $enc['id'] ?>&format=zip"
+                           class="btn btn-outline-light"
+                           title="Télécharger tous les PVs de cet encadrant (ZIP)">
+                            <i class="bi bi-file-earmark-zip me-1"></i>ZIP
+                        </a>
+                        <a href="/web/index.php?controller=pv&action=telecharger&scope=encadrant&encadrant_id=<?= $enc['id'] ?>&format=pdf"
+                           class="btn btn-outline-light"
+                           title="Télécharger tous les PVs de cet encadrant (PDF fusionné)">
+                            <i class="bi bi-file-earmark-pdf me-1"></i>PDF
+                        </a>
+                    </div>
                 </div>
 
                 <!-- TABLEAU ÉTUDIANTS -->

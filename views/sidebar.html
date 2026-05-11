@@ -213,6 +213,11 @@
        class="nav-item-s <?= (($controller ?? '') === 'soutenance' && ($action ?? '') === 'index') ? 'active' : '' ?>">
         <i class="bi bi-calendar-event"></i> Liste des soutenances
     </a>
+    <a href="/web/index.php?controller=soutenance&action=planifier"
+       class="nav-item-s <?= (($controller ?? '') === 'soutenance' && ($action ?? '') === 'planifier') ? 'active' : '' ?>">
+        <i class="bi bi-magic"></i> Planification automatique
+    </a>
+
 
     <!-- ── Procès-verbaux ── -->
     <div class="sidebar-section">Procès-verbaux</div>

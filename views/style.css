@@ -63,12 +63,11 @@ body{
     padding:20px;
 }
 
-.main-content{
-    margin-left:250px;
-    width:calc(100% - 250px);
-    padding:30px;
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
 }
-
 .card{
     border:none;
     border-radius:15px;
