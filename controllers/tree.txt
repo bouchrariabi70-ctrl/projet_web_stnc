@@ -1,0 +1,54 @@
+📦controllers
+ ┣ 📜ConfigurationController.php
+ ┣ 📜ControllerSoutenance.php
+ ┣ 📜DashboardController.php
+ ┣ 📜EtudiantController.php
+ ┣ 📜import_profs.php
+ ┣ 📜juryController.php
+ ┣ 📜profController.php
+ ┣ 📜PvController.php
+ ┣ 📜sallecontroller.php
+ ┗ 📜VerificateurController.php
+ 📦config
+ ┗ 📜database.php
+ 📦models
+ ┣ 📜configuration.php
+ ┣ 📜dashboard.php
+ ┣ 📜Etudiant.php
+ ┣ 📜jury.php
+ ┣ 📜prof.php
+ ┣ 📜Pv.php
+ ┣ 📜salle.php
+ ┣ 📜soutenance.php
+ ┗ 📜Verificateur.php
+ 📦views
+ ┣ 📂css
+ ┃ ┗ 📜bootstrap.min.css
+ ┣ 📂dashboard
+ ┃ ┗ 📜index.php
+ ┣ 📂etudiant
+ ┃ ┣ 📜ajouteretudiant.php
+ ┃ ┣ 📜import.php
+ ┃ ┣ 📜liste.php
+ ┃ ┗ 📜modifier.php
+ ┣ 📂prof
+ ┃ ┗ 📜liste_profs.php
+ ┣ 📂pv
+ ┃ ┣ 📜create.php
+ ┃ ┣ 📜edit.php
+ ┃ ┣ 📜index.php
+ ┃ ┗ 📜show.php
+ ┣ 📂salle
+ ┃ ┣ 📜ajouter.php
+ ┃ ┣ 📜disponible.php
+ ┃ ┣ 📜liste.php
+ ┃ ┗ 📜styleSalle.css
+ ┣ 📂verificateur
+ ┃ ┣ 📜rapport.php
+ ┃ ┗ 📜rapport_complet.php
+ ┣ 📜sidebar.html
+ ┗ 📜style.css
+ 
+ index.php
+ {}composer.json
+ {}composer.lock

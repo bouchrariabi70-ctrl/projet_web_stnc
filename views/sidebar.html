@@ -1,0 +1,231 @@
+
+<style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 250px;
+        overflow-y: auto;
+        background-color: #23242c;
+    }
+    .sidebar-section {
+        color: rgb(89, 89, 114);
+        padding: 1rem;
+    }
+    .sidebar-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: 'Syne', sans-serif;
+        padding: 1rem;
+    }
+    .sidebar-sub {
+        font-size: 0.9rem;
+        color: #4a4b4b;
+        margin-bottom: 1rem;
+        font-family: 'DM Sans', sans-serif;
+        padding: 0 1rem;
+    }
+    .nav-item-s {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .nav-item-s:hover,
+    .nav-item-s.active {
+        background-color: #375e69;
+        border-radius: 15px;
+        width: 70%;
+    }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-logo"><i class="bi bi-mortarboard-fill"></i> GestPFE</div>
+    <div class="sidebar-sub">Gestion des soutenances</div>
+
+    <!-- Dashboard -->
+    <a href="/web/index.php?page=dashboard"
+       class="nav-item-s <?= ($controller ?? '') === 'dashboard' ? 'active' : '' ?>">
+        <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+
+    <!-- ── Étudiants ── -->
+    <div class="sidebar-section">Étudiants</div>
+    <a href="/web/index.php?controller=etudiant&action=liste_etudiants"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'liste_etudiants') ? 'active' : '' ?>">
+        <i class="bi bi-list-ul"></i> Liste des étudiants
+    </a>
+    <a href="/web/index.php?controller=etudiant&action=ajouter_etudiant"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'ajouter_etudiant') ? 'active' : '' ?>">
+        <i class="bi bi-person-plus"></i> Ajouter un étudiant
+    </a>
+    <a href="/web/index.php?controller=etudiant&action=importer_etudiants"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'importer_etudiants') ? 'active' : '' ?>">
+        <i class="bi bi-file-earmark-excel"></i> Importer fichier étudiants
+    </a>
+
+    <!-- ── Professeurs ── -->
+    <div class="sidebar-section">Professeurs</div>
+    <a href="/web/index.php?controller=prof"
+       class="nav-item-s <?= ($controller ?? '') === 'prof' ? 'active' : '' ?>">
+        <i class="bi bi-file-earmark-arrow-up"></i> Importer fichier professeurs
+    </a>
+    <a href="/web/index.php?controller=liste_prof"
+       class="nav-item-s <?= ($controller ?? '') === 'liste_prof' ? 'active' : '' ?>">
+        <i class="bi bi-person-badge"></i> Liste des professeurs
+    </a>
+
+    <!-- ── Salles ── -->
+    <div class="sidebar-section">Salles</div>
+    <a href="/web/index.php?controller=salle&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-list-ul"></i> Liste des salles
+    </a>
+    <a href="/web/index.php?controller=salle&action=ajouter"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'ajouter') ? 'active' : '' ?>">
+        <i class="bi bi-building-add"></i> Ajouter une salle
+    </a>
+    <a href="/web/index.php?controller=salle&action=disponible"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'disponible') ? 'active' : '' ?>">
+        <i class="bi bi-calendar-check"></i> Salles disponibles
+    </a>
+
+    <!-- ── Soutenances ── -->
+    <div class="sidebar-section">Soutenances</div>
+    <a href="/web/index.php?controller=soutenance&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'soutenance' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-calendar-event"></i> Liste des soutenances
+    </a>
+
+    <!-- ── Procès-verbaux ── -->
+    <div class="sidebar-section">Procès-verbaux</div>
+    <a href="/web/index.php?controller=pv&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'pv' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-diagram-3"></i> PV par encadrant
+    </a>
+
+    <!-- ── Configuration ── -->
+    <div class="sidebar-section">Configuration</div>
+    <a href="/web/index.php?controller=configuration&action=index"
+       class="nav-item-s <?= ($controller ?? '') === 'configuration' ? 'active' : '' ?>">
+        <i class="bi bi-gear"></i> Paramètres
+    </a>
+</div><style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 250px;
+        overflow-y: auto;
+        background-color: #23242c;
+    }
+    .sidebar-section {
+        color: rgb(89, 89, 114);
+        padding: 1rem;
+    }
+    .sidebar-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: 'Syne', sans-serif;
+        padding: 1rem;
+    }
+    .sidebar-sub {
+        font-size: 0.9rem;
+        color: #4a4b4b;
+        margin-bottom: 1rem;
+        font-family: 'DM Sans', sans-serif;
+        padding: 0 1rem;
+    }
+    .nav-item-s {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .nav-item-s:hover,
+    .nav-item-s.active {
+        background-color: #375e69;
+        border-radius: 15px;
+        width: 70%;
+    }
+</style>
+
+<div class="sidebar">
+    <div class="sidebar-logo"><i class="bi bi-mortarboard-fill"></i> GestPFE</div>
+    <div class="sidebar-sub">Gestion des soutenances</div>
+
+    <!-- Dashboard -->
+    <a href="/web/index.php?page=dashboard"
+       class="nav-item-s <?= ($controller ?? '') === 'dashboard' ? 'active' : '' ?>">
+        <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+
+    <!-- ── Étudiants ── -->
+    <div class="sidebar-section">Étudiants</div>
+    <a href="/web/index.php?controller=etudiant&action=liste_etudiants"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'liste_etudiants') ? 'active' : '' ?>">
+        <i class="bi bi-list-ul"></i> Liste des étudiants
+    </a>
+    <a href="/web/index.php?controller=etudiant&action=ajouter_etudiant"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'ajouter_etudiant') ? 'active' : '' ?>">
+        <i class="bi bi-person-plus"></i> Ajouter un étudiant
+    </a>
+    <a href="/web/index.php?controller=etudiant&action=importer_etudiants"
+       class="nav-item-s <?= (($controller ?? '') === 'etudiant' && ($action ?? '') === 'importer_etudiants') ? 'active' : '' ?>">
+        <i class="bi bi-file-earmark-excel"></i> Importer fichier étudiants
+    </a>
+
+    <!-- ── Professeurs ── -->
+    <div class="sidebar-section">Professeurs</div>
+    <a href="/web/index.php?controller=prof"
+       class="nav-item-s <?= ($controller ?? '') === 'prof' ? 'active' : '' ?>">
+        <i class="bi bi-file-earmark-arrow-up"></i> Importer fichier professeurs
+    </a>
+    <a href="/web/index.php?controller=liste_prof"
+       class="nav-item-s <?= ($controller ?? '') === 'liste_prof' ? 'active' : '' ?>">
+        <i class="bi bi-person-badge"></i> Liste des professeurs
+    </a>
+
+    <!-- ── Salles ── -->
+    <div class="sidebar-section">Salles</div>
+    <a href="/web/index.php?controller=salle&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-list-ul"></i> Liste des salles
+    </a>
+    <a href="/web/index.php?controller=salle&action=ajouter"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'ajouter') ? 'active' : '' ?>">
+        <i class="bi bi-building-add"></i> Ajouter une salle
+    </a>
+    <a href="/web/index.php?controller=salle&action=disponible"
+       class="nav-item-s <?= (($controller ?? '') === 'salle' && ($action ?? '') === 'disponible') ? 'active' : '' ?>">
+        <i class="bi bi-calendar-check"></i> Salles disponibles
+    </a>
+
+    <!-- ── Soutenances ── -->
+    <div class="sidebar-section">Soutenances</div>
+    <a href="/web/index.php?controller=soutenance&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'soutenance' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-calendar-event"></i> Liste des soutenances
+    </a>
+
+    <!-- ── Procès-verbaux ── -->
+    <div class="sidebar-section">Procès-verbaux</div>
+    <a href="/web/index.php?controller=pv&action=index"
+       class="nav-item-s <?= (($controller ?? '') === 'pv' && ($action ?? '') === 'index') ? 'active' : '' ?>">
+        <i class="bi bi-diagram-3"></i> PV par encadrant
+    </a>
+
+    <!-- ── Configuration ── -->
+    <div class="sidebar-section">Configuration</div>
+    <a href="/web/index.php?controller=configuration&action=index"
+       class="nav-item-s <?= ($controller ?? '') === 'configuration' ? 'active' : '' ?>">
+        <i class="bi bi-gear"></i> Paramètres
+    </a>
+</div>
+
